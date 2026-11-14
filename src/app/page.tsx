@@ -57,8 +57,8 @@ export default function Home() {
           <div>
             <p className="eyebrow mb-6">Fattoria degli Agrumi — Est. 1962 · Sicily</p>
             <h1 className="sr-only">Solea — Sicilian citrus farm making marmalades, pestos and grove oils</h1>
-            <SplitText textAlign="left" text="Sunshine," tag="span" duration={0.9} delay={30} className="block font-display font-medium text-[17vw] sm:text-7xl lg:text-8xl leading-[0.95] text-leaf pb-[0.16em] -mb-[0.16em]" />
-            <SplitText textAlign="left" text="sealed in a jar." tag="span" duration={0.9} delay={30} className="block font-display font-medium italic text-[17vw] sm:text-7xl lg:text-8xl leading-[0.95] text-citrus pb-[0.16em] -mb-[0.16em]" />
+            <SplitText textAlign="left" text="Sunshine," tag="span" duration={0.9} delay={30} className="block font-display font-medium text-[17vw] sm:text-7xl lg:text-8xl leading-[0.95] text-leaf" />
+            <SplitText textAlign="left" text="sealed in a jar." tag="span" duration={0.9} delay={30} className="block font-display font-medium italic text-[17vw] sm:text-7xl lg:text-8xl leading-[0.95] text-citrus" />
             <div className="mt-7 max-w-xl text-lg text-bark/85 leading-relaxed">
               Small-batch preserves from our own grove — <span className="inline-block min-w-[184px] align-baseline"><FlipWords words={['blood oranges', 'Femminello lemons', 'late mandarins', 'bitter bergamots']} className="font-semibold text-leaf" duration={2600} /></span> picked at dawn and panned the same morning, a few steps from the trees.
             </div>
@@ -156,8 +156,8 @@ export default function Home() {
 
           <ul className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5" role="list">
             {PRODUCTS.map((p) => (
-              <li key={p.slug}>
-                <FadeContent blur duration={700}>
+              <li key={p.slug} className="h-full">
+                <FadeContent blur duration={700} className="h-full">
                   <article className="group flex h-full flex-col rounded-3xl border border-leaf/15 bg-cream overflow-hidden shadow-sm hover:shadow-xl transition-shadow" data-cursor="Taste">
                     <div className="relative">
                       <TiltedCard imageSrc={p.image} altText={p.alt} captionText={p.name} containerHeight="230px" containerWidth="100%" imageHeight="230px" imageWidth="100%" rotateAmplitude={7} scaleOnHover={1.05} showTooltip={false} radius={24} />
@@ -165,8 +165,8 @@ export default function Home() {
                     </div>
                     <div className="flex flex-1 flex-col p-5">
                       <p className="text-[10px] font-bold uppercase tracking-[0.18em]" style={{ color: p.hue }}>{p.family}</p>
-                      <h3 className="font-display text-xl leading-snug text-leaf mt-1.5">{p.name}</h3>
-                      <p className="text-sm text-bark/80 mt-2 leading-relaxed">{p.notes}</p>
+                      <h3 className="font-display text-xl leading-snug text-leaf mt-1.5 min-h-[3.4375rem]">{p.name}</h3>
+                      <p className="text-sm text-bark/80 mt-2 leading-relaxed min-h-[4.3125rem]">{p.notes}</p>
                       <div className="mt-auto flex items-end justify-between gap-3 pt-4">
                         <p className="font-display text-2xl leading-none text-leaf">€{p.price}<span className="mt-1.5 block font-sans text-[11px] leading-tight text-bark/60">{p.size}</span></p>
                         <a href="#visit" aria-label={`Order ${p.name} — visit or write to us`} className="rounded-full bg-leaf px-4 py-2.5 min-h-[44px] inline-flex items-center text-xs font-bold uppercase tracking-[0.12em] text-cream hover:bg-citrus transition-colors">Add</a>

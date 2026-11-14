@@ -148,10 +148,45 @@ const SplitText = ({
         onCompleteRef.current?.();
       };
 
+      // Descender guard: when this root clips (overflow-hidden mask reveal), the
+      // mask's bottom edge is the element's padding-box bottom. Display fonts like
+      // Fraunces have ascent+descent larger than the CSS line-height (74px vs 60px
+      // at text-6xl), so descender ink (j, g, p, y) extends past the box bottom and
+      // gets sliced. Extend the padding box downward and reduce margin-bottom by
+      // the same amount so the outer layout size — and everything after this
+      // element — is pixel-identical, while the full descender paints inside the
+      // mask. Existing padding/margin (e.g. mb-8) is read first and preserved.
+      // Originals are stashed on the element (dataset) so re-running this effect
+      // never stacks the extension: computed padding already includes it.
+      let guardApplied = false;
+      const clipsText =
+        hoverEffect === 'none' && (from !== undefined || to !== undefined || effect === 'rise' || effect === 'fade');
+      if (clipsText && el.dataset.dg !== '1') {
+        const cs = getComputedStyle(el);
+        const extra = (parseFloat(cs.fontSize) || 16) * 0.22;
+        el.dataset.dg = '1';
+        el.dataset.dgPb = el.style.paddingBottom;
+        el.dataset.dgMb = el.style.marginBottom;
+        el.style.paddingBottom = `${(parseFloat(cs.paddingBottom) || 0) + extra}px`;
+        el.style.marginBottom = `${(parseFloat(cs.marginBottom) || 0) - extra}px`;
+        guardApplied = true;
+      } else if (clipsText && el.dataset.dg === '1') {
+        guardApplied = true;
+      }
+      const releaseGuard = () => {
+        if (!guardApplied || el.dataset.dg !== '1') return;
+        el.style.paddingBottom = el.dataset.dgPb || '';
+        el.style.marginBottom = el.dataset.dgMb || '';
+        delete el.dataset.dg;
+        delete el.dataset.dgPb;
+        delete el.dataset.dgMb;
+        guardApplied = false;
+      };
+
       if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) {
         setReady(true);
         finish();
-        return;
+        return releaseGuard;
       }
 
       const startPct = (1 - threshold) * 100;
@@ -410,6 +445,7 @@ const SplitText = ({
           if (st.trigger === el) st.kill();
         });
         splitInstance.revert();
+        releaseGuard();
       };
     },
     {

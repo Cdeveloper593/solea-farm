@@ -328,3 +328,105 @@ scripted Playwright drags + PNG pixel-diffing (`qa/deep-fixed2/spin-*.png`): sta
 front view (blossom left, lemon right); after ~390px drag = back side (lemon left,
 blossom right); after ~785px total = front view again; a further 260px stroke keeps
 rotating past the full turn. Touch uses the same unified Pointer Events path.
+
+---
+
+## Round 3 — cut-off descenders everywhere + product-card equal heights (2026-11-14, user-reported)
+
+### R3-A (Critical, user screenshot image-11.png) Descenders sliced on every SplitText heading
+**Symptom:** in "From grove to jar in one morning" the "j" of "jar" is amputated at the
+baseline; same flattening on every g/p/y descender sitting on a heading's last line.
+
+**Root cause (proven, not inferred):** SplitText renders its root with
+`overflow: hidden` (the rise-reveal mask). Fraunces' font metrics at 60px are
+ascent 59px + descent 15px = 74px, but the headings' line-height is 60px (leading 1.0),
+so the baseline sits 52px from the box top and descender ink extends to 66px — 6px
+BELOW the root's padding-box bottom, where the mask slices it. Any descender on a
+non-final line survives (its overflow lands inside the box, over the next line's
+leading); final-line descenders are cut. Controlled A/B proof in
+`qa/descenders-before/frag-a-normal.png` vs `frag-b-visible.png`: with the stock
+overflow hidden, glyph ink in the "jar" column ends in a flat run exactly at the box
+bottom (image row 140 = box edge); forcing `overflow: visible` extends the same
+glyphs continuously to row 152 (= +6 CSS px, exactly the predicted ink overflow).
+Canvas `measureText` on Fraunces confirms inkDescent 14px for j/g/p/y at 60px.
+Round-1 item 6 had band-aided only the hero spans (`pb-[0.16em] -mb-[0.16em]`);
+round-2 item C's words-mode switch left every other heading exposed.
+
+**Fix (root cause, in the component):** `src/components/reactbits/SplitText/SplitText.tsx`
+— inside the GSAP effect, whenever the root will clip (same condition that adds the
+`split-parent` overflow-hidden class), the effect now extends the root's
+padding-bottom by 0.22em and reduces margin-bottom by exactly the same amount,
+reading the computed values first (so existing margins like mb-8 are preserved in
+net terms) and stashing the original inline values in `dataset` so effect re-runs
+never stack the extension; the cleanup (and the reduced-motion path) restores them.
+Net layout is pixel-identical: at 1440 the Process heading's top stayed at
+2339.5px and the following panel's top at 2437.5 → 2437.48px, while the heading's
+own box grew 60 → 73.2px (pb 13.2px, mb 32 → 18.8px). The hero spans' old
+`pb-[0.16em] -mb-[0.16em]` band-aid classes were removed from page.tsx — the
+component mechanism replaces them (hero pb now 21.12px at 96px font, mb −21.12px).
+0.22em covers the measured 0.10em ink overflow with >2× headroom, including the
+longer italic descenders.
+
+**Audit (Playwright, headless Chrome shell, DSF 2–3, settled + mid-animation,
+1440/1024/390/360; ~100 crops each in `qa/descenders-before/` and
+`qa/descenders-after/`, plus viewport clips `v*-clip-*.png` that extend 72px below
+each heading so descender ink is judged against the real box edge):**
+- Hero "Sunshine," / italic "sealed in a jar." — before: band-aid only. After: PASS
+  (`v1440-clip-hero-span2.png`: the italic j hook paints in full).
+- Process "From grove to jar in one morning" (j, g, g) — before: CLIPPED
+  (`v1440-clip-process-h2.png`, frag A/B). After: PASS settled and mid-animation
+  (`v1440-clip-process-h2.png` after: lowest ink row 158 vs box edge 170 — 6px
+  clearance; `v390-mid-process-2.png`).
+- Pantry "Jars we're proud of" (J, p) — before: borderline/clipped p (same
+  geometry). After: PASS, incl. mid-animation frame `v1440-mid-pantry-2.png`
+  (J hook + p foot fully formed).
+- Seasons "Four seasons, four kitchens" — no descender letters in the heading;
+  PASS before and after.
+- Journal "From the farm notebook" — no descender letters; PASS.
+- Visit "Walk the grove. Taste the pan." — "grove." g safe on line 1; final-line
+  "pan." p was at risk. After: PASS (`v1440-clip-visit-h2.png`: full p descender).
+- Full-screen menu links ("Our Story" y, "From Grove to Jar" G, "The Pantry" p/y,
+  "Journal" J) — same component, same guard. After: PASS (`v1440-menu.png`).
+- Non-SplitText sweep: BlurText / TextGenerateEffect / FlipWords / ShinyText have
+  no overflow mask (source-checked); story statement, sticky step titles, timeline,
+  journal cards, voices, gallery header ("The grove, in every season" — g/y full),
+  bento text (R2-J fix re-verified in the after capture set) and the 390px footer
+  all PASS. No other cut-off text found.
+
+### R3-B (Major, user screenshot image-12.png) Product cards different heights
+**Symptom:** row bottoms stepped from card to card; price/ADD rows ragged; the €12
+on "Late Mandarin & Ginger Jam" looked clipped at the ADD row; Femminello's ADD
+appeared to stick out of the card.
+
+**Root cause (measured):** the stretch chain broke at FadeContent — the grid `li`
+stretched (461.5px for all row-1 items at 1440) but FadeContent's div kept its
+content height, so the article's `h-full` resolved against that shorter height.
+Before, at 1440: article heights 461.5 / 461.5 / 434 / 434 (row 1) and 434 (row 2);
+price-row offsets within the card 380.5 vs 353px. At 1024: 511.8 / 489 / 461.5 /
+461.5. Variance sources: title 1 vs 2 lines (27.5px) and notes 2 vs 3 lines
+(22.75px).
+
+**Fix (page.tsx, pantry grid only):** `li` gets `h-full`; FadeContent gets
+`className="h-full"`; the article already had `h-full flex flex-col` with the price
+row on `mt-auto`. Title gets `min-h-[3.4375rem]` (2 lines) and notes
+`min-h-[4.3125rem]` (3 lines) so all eight cards share one height across rows too,
+not just within a row. Image area unchanged (TiltedCard fixed 230px), tilt/hover
+untouched.
+
+**Measured after (bounding boxes, all 8 cards; within-row variance 0.0px at every
+viewport):**
+
+| viewport | row 1 card h | row 2 card h | price-row offset in card (row 1 / row 2) |
+|---|---|---|---|
+| 1440 | 485 (×4) | 485 (×4) | 404 / 404 |
+| 1024 | 512.5 (×4) | 485 (×4) | 431.5 / 404 |
+| 390 | 485 (×8, single column) | — | uniform |
+| 360 | 485 (×8, single column) | — | uniform |
+
+(At 1024 the narrower 221px columns wrap some row-1 titles to 3 lines, so row 1 is
+taller than row 2 — within-row equality, the requirement, is exact.) €12 and every
+price/unit render fully with a clear gap to ADD; every ADD sits inside its card —
+`qa/descenders-after/v1440-products.png`.
+
+**Build:** `npm run build` passes (First Load 262 kB, unchanged). Local prod
+server on port 4200 restarted with the new build.
