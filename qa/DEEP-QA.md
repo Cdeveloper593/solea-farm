@@ -226,3 +226,89 @@ After screenshots: `qa/deep-fixed/` (same sweep against the fixed local build) p
 ### Publishing
 
 _(filled in after the GitHub push + Vercel verification)_
+
+
+## Second round (parent live-check items A–I + user-reported bento item)
+
+### R2-A (Major) Grove gallery still collided with photos / empty green stretches
+Confirmed in `qa/deep-vercel/` captures: the subtitle sat on the mandarin tile at
+section entry, and a ~230px empty green band preceded the heading. Fixed: parallax
+ranges narrowed again (translateY [−320,260] → [−140,200], rotateZ 10° → 7°), section
+300vh → 260vh with py-24 → py-16, header padding and row gaps reduced. Re-captured
+(`qa/deep-fixed2/fixed2-gallery-*`, `fixed2-parallax-*`): subtitle fully clear of tiles
+at entry; mid-scroll rows are dense and bright. Accepted trade-off: at the exact entry
+frame there is green space between the subtitle and the first row, so the text never
+sits on a tile.
+
+### R2-B (Moderate) Empty bands between sections
+Section rhythm tightened across the page (hero pb-8; story/seasons/pantry
+py-16/sm:py-24; process/journal pb-16/sm:pb-24; voices py-16; visit py-16/sm:py-24).
+Verified in the fixed2 section captures.
+
+### R2-C (Moderate) Heading entrances looked glitched mid-animation
+Root cause: SplitText defaults (duration 1.25s, 50ms/char stagger) keep ~2s of blurred,
+overlapping letters per heading. All SplitText call sites now pass explicit calmer
+props — section headings `splitType="words" duration={0.85} delay={60}`, hero spans
+duration 0.9 / delay 30, menu links 0.8 / 25 — so entrances complete in ~1s and read as
+a gentle rise, never a scramble.
+
+### R2-D (Minor) Cursor "TASTE" pill covered product titles
+Pill anchor moved from centred-above the pointer to trailing below-right, and shrunk
+(px-3 py-1, 10px type). Verified in `qa/deep-fixed2/verify-cursor.png`: title fully
+readable with the pill clear of the text.
+
+### R2-E (Minor) Olio Solea price crowded/clipped against the ADD button
+Price row restructured: the pack size moved to its own line under the price and the row
+is `items-end`. Measured on the Olio card: 154px clear between price block and ADD
+(`qa/deep-fixed2/fixed2-products.png`).
+
+### R2-F (Minor) Preloader ghost ("SOLEA 100%") lingering over the hero
+Exit fade shortened 500ms → 300ms and the unmount/body-overflow timers tightened
+(2050ms → 1830ms); the ghost window shrinks from ~550ms to ~320ms. A very brief fade
+remains by design.
+
+### R2-G (Major) Photo mismatches — one real, one a real functional bug
+Story card 1 "Volcanic soil" genuinely showed the tomato-bowl photo: image changed to
+`tomato.jpg` ("A ripe tomato resting on dark volcanic stone"). Process step 4 was NOT
+a mapping error — it exposed a real bug: the StickyScroll's stock `useScroll`
+container progress never approached 1 while the panel was on screen, so **the last
+step could never activate** and the panel stayed on step 3's spices photo (reproduced
+at max panel scroll: step 3 opacity 1, spices.jpg). Fixed by computing the active step
+from the panel's own scroll ratio. Proof in `qa/deep-fixed2/verify-process-step4.png`:
+"Sealed while it sings" active with the honey-jar image.
+
+### R2-H (Minor) Voices edge cards faded/sliced
+Accepted in part: a marquee must slice cards at the viewport edge, but the 20% mask
+stops faded edge cards to near-invisible. Mask narrowed to 8%/92% (documented
+adaptation); the right-edge card is now fully readable
+(`qa/deep-fixed2/fixed2-voices.png`). The left edge still fades over ~100px, which
+reads as intentional depth.
+
+### R2-I (Note) 3D branch leaf spike / flat leaves
+Aesthetic note only; no model change beyond round 1's camera/blossom re-render
+(binaries pending upload, see Publishing).
+
+### R2-J (Critical, user-reported with screenshot) Bento cards near-black in dark mode
+The user's screenshot (`~/workspace/user/media_library/image/image-10.png`) showed the
+four Pantry bento cards as black slabs with teal/mauve titles, the basil photo reading
+as a floating white inset, and the "Oil & honey" description clipped at the card's
+bottom. Root cause: the vendored BentoGrid carries stock `dark:` variants
+(`dark:bg-black`) that my light-mode headless captures could never trigger; reproduced
+by emulating `prefers-color-scheme: dark` (card bg measured rgb(0,0,0)).
+Fixes: all `dark:` variants purged from bento-grid, infinite-moving-cards, timeline,
+flip-words and direction-aware-hover (the flip word would also have flipped near-white
+on cream); bento base surface `bg-cream border-leaf/15`; fixed `md:auto-rows-[18rem]`
+removed so rows size to content (the clip's cause); "Oil & honey" → "Oil and honey"
+(Fraunces' ampersand reads as an epsilon-like glyph at display size); basil header
+given a tighter 1.45× crop inside an overflow-hidden frame so the plant fills its band;
+`globals.css` declares `color-scheme: light`. Verified with dark-scheme emulation at
+1512px and 390px (`qa/deep-fixed2/bento-dark.png`, `bento-mobile-dark.png`): all four
+cards cream rgb(251,242,223) in BOTH schemes, unified leaf titles, full-bleed images,
+every description ending 17px inside its card.
+
+### Round-2 publishing
+- `ab096eaeaaede9eddfc220dcb82a76a4198ccc73` — round-2 fixes A–H (8 files); Vercel
+  page chunk → `ec9cb4f3fde352a1`; deployment visually spot-checked from a fresh mirror
+  (`qa/deep-vercel2/`, 43 files; form + sticky step 4 re-verified on the deployment).
+- Bento/dark-mode fix pushed as its own commit after this section was written; SHA and
+  the Vercel chunk recorded in the pass's final report.
