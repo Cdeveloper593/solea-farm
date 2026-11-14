@@ -84,6 +84,13 @@ deep-QA pass (see `qa/DEEP-QA.md`). No new components or libraries were introduc
   `useScroll` container progress never approached 1 while the panel was on screen, so
   the last step could never activate; the active step is now computed from the panel's
   own scroll ratio (`floor(ratio × steps)` in a passive scroll listener).
+- **Dark-variant purge (round 2)** — SOLEA is a light-only design, but several vendored
+  components carried stock `dark:` variants that flipped them near-black on devices in
+  dark mode (user-reported on the bento grid). All `dark:` surface/text variants were
+  removed from bento-grid, infinite-moving-cards, timeline, flip-words and
+  direction-aware-hover; the bento base surface is now `bg-cream border-leaf/15`, its
+  rows are content-sized (the fixed `md:auto-rows-[18rem]` clipped card text), and
+  `globals.css` declares `color-scheme: light`.
 - **direction-aware-hover.tsx** — removed a `console.log` that fired on every hover; the
   image `alt` is now a real `imageAlt` prop (was hardcoded `"image"`).
 - Call-site props (in `src/app/page.tsx`, no component edits): SpotlightCard used with
