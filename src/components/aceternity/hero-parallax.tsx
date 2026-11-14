@@ -43,21 +43,21 @@ export const HeroParallax = ({
     springConfig
   );
   const opacity = useSpring(
-    useTransform(scrollYProgress, [0, 0.2], [0.2, 1]),
+    useTransform(scrollYProgress, [0, 0.2], [0.55, 1]),
     springConfig
   );
   const rotateZ = useSpring(
-    useTransform(scrollYProgress, [0, 0.2], [20, 0]),
+    useTransform(scrollYProgress, [0, 0.2], [10, 0]),
     springConfig
   );
   const translateY = useSpring(
-    useTransform(scrollYProgress, [0, 0.2], [-700, 500]),
+    useTransform(scrollYProgress, [0, 0.2], [-320, 260]),
     springConfig
   );
   return (
     <div
       ref={ref}
-      className="h-[300vh] py-40 overflow-hidden  antialiased relative flex flex-col self-auto [perspective:1000px] [transform-style:preserve-3d]"
+      className="h-[300vh] py-24 overflow-hidden  antialiased relative flex flex-col self-auto [perspective:1000px] [transform-style:preserve-3d]"
     >
       <Header />
       <motion.div
@@ -69,7 +69,7 @@ export const HeroParallax = ({
         }}
         className=""
       >
-        <motion.div className="flex flex-row-reverse space-x-reverse space-x-20 mb-20">
+        <motion.div className="flex flex-row-reverse space-x-reverse space-x-20 mb-14">
           {firstRow.map((product) => (
             <ProductCard
               product={product}
@@ -78,7 +78,7 @@ export const HeroParallax = ({
             />
           ))}
         </motion.div>
-        <motion.div className="flex flex-row  mb-20 space-x-20 ">
+        <motion.div className="flex flex-row  mb-14 space-x-20 ">
           {secondRow.map((product) => (
             <ProductCard
               product={product}
@@ -103,10 +103,10 @@ export const HeroParallax = ({
 
 export const Header = () => {
   return (
-    <div className="max-w-7xl relative mx-auto py-20 md:py-40 px-4 w-full  left-0 top-0">
-      <p className="font-display text-4xl md:text-7xl font-medium text-cream">
+    <div className="max-w-7xl relative z-10 mx-auto py-20 md:py-28 px-4 w-full  left-0 top-0">
+      <h2 className="font-display text-4xl md:text-7xl font-medium text-cream">
         The grove, <br /> in every season
-      </p>
+      </h2>
       <p className="max-w-2xl text-base md:text-xl mt-8 text-cream/80">
         Thirteen frames from our fourteen hectares — scroll and the rows drift
         past like the walk from the gate to the kitchen door.
@@ -145,7 +145,7 @@ export const ProductCard = ({
           src={product.thumbnail}
           height="600"
           width="600"
-          className="object-cover object-left-top absolute h-full w-full inset-0"
+          loading="lazy" decoding="async" className="object-cover object-center absolute h-full w-full inset-0"
           alt={product.title}
         />
       </a>

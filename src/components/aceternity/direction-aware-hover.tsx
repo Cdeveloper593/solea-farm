@@ -7,12 +7,14 @@ import { cn } from "@/lib/utils";
 
 export const DirectionAwareHover = ({
   imageUrl,
+  imageAlt,
   children,
   childrenClassName,
   imageClassName,
   className,
 }: {
   imageUrl: string;
+  imageAlt?: string;
   children: React.ReactNode | string;
   childrenClassName?: string;
   imageClassName?: string;
@@ -30,7 +32,6 @@ export const DirectionAwareHover = ({
     if (!ref.current) return;
 
     const direction = getDirection(event, ref.current);
-    console.log("direction", direction);
     switch (direction) {
       case 0:
         setDirection("top");
@@ -87,7 +88,7 @@ export const DirectionAwareHover = ({
             }}
           >
             <img
-              alt="image"
+              alt={imageAlt ?? ""}
               className={cn(
                 "h-full w-full object-cover scale-[1.15]",
                 imageClassName
