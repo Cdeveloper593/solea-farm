@@ -312,3 +312,19 @@ every description ending 17px inside its card.
   (`qa/deep-vercel2/`, 43 files; form + sticky step 4 re-verified on the deployment).
 - Bento/dark-mode fix pushed as its own commit after this section was written; SHA and
   the Vercel chunk recorded in the pass's final report.
+
+### R2-K (Major, user-reported) 3D branch could not be spun around
+The hero model had no drag interaction at all: rotation.y was pointer-position
+parallax (pointer.x × 0.45) plus a capped scroll term — a ±~40° wobble, impossible to
+turn around. Rebuilt the interaction in CitrusCanvas: pointer drags on the canvas
+accumulate an unbounded target azimuth (0.008 rad/px, pointer capture), the model
+damps toward it (frame-rate-independent, k=12) with flick inertia on release; the
+scroll contribution and a small idle sway remain as separate additive offsets that
+never re-clamp the user's rotation. Polar tilt stays a gentle pointer parallax.
+Canvas gets `touch-action: pan-y` (wrapper class + GL element) so vertical touch
+swipes still scroll the page while horizontal drags spin; cursor affordance is
+grab/grabbing and the caption now reads "drag to spin it". Verified IN MOTION with
+scripted Playwright drags + PNG pixel-diffing (`qa/deep-fixed2/spin-*.png`): start =
+front view (blossom left, lemon right); after ~390px drag = back side (lemon left,
+blossom right); after ~785px total = front view again; a further 260px stroke keeps
+rotating past the full turn. Touch uses the same unified Pointer Events path.

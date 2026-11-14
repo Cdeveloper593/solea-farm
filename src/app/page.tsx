@@ -73,10 +73,10 @@ export default function Home() {
             </dl>
           </div>
           <div className="relative">
-            <div data-cursor="Turn me" className="relative h-[320px] sm:h-[400px] lg:h-[460px]">
+            <div data-cursor="Drag to spin" className="relative h-[320px] sm:h-[400px] lg:h-[460px]">
               <CitrusCanvas />
             </div>
-            <p className="text-center text-[11px] uppercase tracking-mega text-bark/60 mt-1">Our branch — modelled in 3D on the farm</p>
+            <p className="text-center text-[11px] uppercase tracking-mega text-bark/60 mt-1">Our branch — modelled in 3D · drag to spin it</p>
             <div className="mx-auto mt-6 max-w-sm">
               <CardContainer className="inter-var">
                 <CardBody className="relative h-auto w-full rounded-3xl border border-leaf/15 bg-parch p-5 shadow-xl">
