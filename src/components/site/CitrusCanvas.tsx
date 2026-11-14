@@ -1,6 +1,6 @@
 'use client'
-import { Component, Suspense, useRef, type ReactNode } from 'react'
-import { Canvas, useFrame } from '@react-three/fiber'
+import { Component, Suspense, useEffect, useRef, type ReactNode } from 'react'
+import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import { Float, useGLTF } from '@react-three/drei'
 import type { Group } from 'three'
 import { useReducedMotion } from '@/lib/hooks'
@@ -14,6 +14,14 @@ class Boundary extends Component<{ fallback: ReactNode; children: ReactNode }, {
 function Branch() {
   const ref = useRef<Group>(null)
   const { scene } = useGLTF('/models/citrus-branch.glb')
+  const { size, camera } = useThree()
+  // The model's framing was tuned for a ~600px-wide canvas. Scale it down on
+  // narrow canvases so the branch tips are never clipped at <=1024px widths.
+  const fit = Math.min(1.05, Math.max(0.6, (size.width / 600) * 1.05))
+  useEffect(() => {
+    camera.position.z = size.width < 480 ? 5.6 : 4.4
+    camera.updateProjectionMatrix()
+  }, [camera, size.width])
   useFrame((state) => {
     if (!ref.current) return
     const t = state.clock.elapsedTime
@@ -24,7 +32,7 @@ function Branch() {
   })
   return (
     <Float speed={1.4} rotationIntensity={0.25} floatIntensity={0.5}>
-      <group ref={ref} scale={1.05}>
+      <group ref={ref} scale={fit}>
         <primitive object={scene} />
       </group>
     </Float>

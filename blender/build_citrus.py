@@ -108,12 +108,12 @@ bpy.context.active_object.data.materials.append(LEMON)
 bx, by, bz = -1.55, 0.10, 0.05
 for i in range(5):
     a = i * (2 * math.pi / 5)
-    bpy.ops.mesh.primitive_uv_sphere_add(segments=12, ring_count=8, radius=0.09,
-                                         location=(bx + 0.10 * math.cos(a), by + 0.10 * math.sin(a), bz))
+    bpy.ops.mesh.primitive_uv_sphere_add(segments=12, ring_count=8, radius=0.13,
+                                         location=(bx + 0.14 * math.cos(a), by, bz + 0.14 * math.sin(a)))
     p = bpy.context.active_object
-    p.scale = (1, 1, 0.35)
+    p.scale = (1, 0.35, 1)
     p.data.materials.append(PETAL)
-bpy.ops.mesh.primitive_uv_sphere_add(segments=12, ring_count=8, radius=0.05, location=(bx, by, bz + 0.02))
+bpy.ops.mesh.primitive_uv_sphere_add(segments=12, ring_count=8, radius=0.07, location=(bx, by, bz + 0.02))
 bpy.context.active_object.data.materials.append(GOLD)
 
 # ---------- camera / lights / poster render ----------
@@ -138,7 +138,7 @@ area.data.energy = 500
 area.data.shape = "DISK"
 area.data.size = 4
 
-bpy.ops.object.camera_add(location=(0, -4.6, 0.55))
+bpy.ops.object.camera_add(location=(0, -6.3, 0.55))
 cam = bpy.context.active_object
 cam.rotation_euler = (math.radians(84), 0, 0)
 cam.data.lens = 52

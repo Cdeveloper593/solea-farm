@@ -34,7 +34,7 @@ export default function Header() {
           </a>
           <p className={`hidden md:block text-[11px] uppercase tracking-mega ${open ? 'text-cream/60' : 'text-bark/70'}`}>Fattoria degli Agrumi · Sicily</p>
           <button type="button" onClick={() => setOpen(!open)} aria-expanded={open} aria-controls="site-menu"
-            className="group flex items-center gap-3 rounded-full border border-leaf/30 bg-cream/70 px-5 py-2.5 text-sm font-semibold uppercase tracking-[0.14em] text-leaf min-h-[44px] hover:bg-leaf hover:text-cream transition-colors">
+            className={`group flex items-center gap-3 rounded-full border ${open ? 'border-cream/50' : 'border-leaf/30'} bg-cream/70 px-5 py-2.5 text-sm font-semibold uppercase tracking-[0.14em] text-leaf min-h-[44px] hover:bg-leaf hover:text-cream transition-colors`}>
             {open ? 'Close' : 'Menu'}
             <span aria-hidden className="relative block h-3 w-5">
               <span className={`absolute left-0 block h-0.5 w-5 bg-current transition-all ${open ? 'top-1/2 rotate-45' : 'top-0'}`} />
@@ -51,7 +51,7 @@ export default function Header() {
                 <li key={l.href}>
                   <a href={l.href} onClick={() => setOpen(false)} className="group flex items-baseline gap-4 py-1 w-fit">
                     <span className="text-lemon font-sans text-sm">0{i + 1}</span>
-                    <SplitText text={l.label} tag="span" className="font-display text-4xl sm:text-6xl font-medium group-hover:text-lemon transition-colors" />
+                    <SplitText textAlign="left" text={l.label} tag="span" className="font-display text-4xl sm:text-6xl font-medium group-hover:text-lemon transition-colors" />
                   </a>
                 </li>
               ))}

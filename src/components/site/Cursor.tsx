@@ -15,7 +15,6 @@ export default function Cursor() {
       const t = (e.target as HTMLElement).closest('[data-cursor]') as HTMLElement | null
       el.textContent = t?.dataset.cursor || ''
       el.style.opacity = t ? '1' : '0'
-      el.style.transform += ''
     }
     const loop = () => {
       x += (tx - x) * 0.16; y += (ty - y) * 0.16
@@ -27,5 +26,5 @@ export default function Cursor() {
     document.addEventListener('mouseover', over, { passive: true })
     return () => { cancelAnimationFrame(raf); window.removeEventListener('mousemove', move); document.removeEventListener('mouseover', over) }
   }, [])
-  return <div ref={ref} aria-hidden className="pointer-events-none fixed z-[95] -translate-x-1/2 -translate-y-[160%] rounded-full bg-citrus px-3.5 py-1.5 font-sans text-[11px] font-semibold uppercase tracking-[0.18em] text-white opacity-0 transition-opacity duration-200 shadow-lg" />
+  return <div ref={ref} aria-hidden className="pointer-events-none fixed z-[95] -translate-x-1/2 -translate-y-[160%] rounded-full bg-leaf px-3.5 py-1.5 font-sans text-[11px] font-semibold uppercase tracking-[0.18em] text-cream opacity-0 transition-opacity duration-200 shadow-lg" />
 }

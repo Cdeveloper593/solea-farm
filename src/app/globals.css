@@ -15,7 +15,7 @@ body { @apply bg-cream text-ink font-sans antialiased; }
   .eyebrow { @apply text-[11px] font-semibold uppercase tracking-mega text-citrus; }
   .btn-primary { @apply inline-flex items-center justify-center gap-2 rounded-full bg-leaf px-7 py-3.5 min-h-[48px] text-sm font-semibold uppercase tracking-[0.14em] text-cream transition-colors hover:bg-citrus focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-leaf; }
   .btn-ghost { @apply inline-flex items-center justify-center gap-2 rounded-full border border-leaf/40 px-7 py-3.5 min-h-[48px] text-sm font-semibold uppercase tracking-[0.14em] text-leaf transition-colors hover:border-leaf hover:bg-leaf hover:text-cream; }
-  .field { @apply w-full rounded-xl border border-cream/30 bg-cream/10 px-4 py-3 min-h-[48px] text-cream placeholder:text-cream/50 focus:border-lemon focus:outline-none; }
+  .field { color-scheme: dark; @apply w-full rounded-xl border border-cream/30 bg-cream/10 px-4 py-3 min-h-[48px] text-cream placeholder:text-cream/50 focus:border-lemon focus:outline-none; }
   .field-label { @apply block text-[11px] font-semibold uppercase tracking-[0.18em] text-lemon mb-2; }
 }
 
