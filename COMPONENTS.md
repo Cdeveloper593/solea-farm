@@ -70,14 +70,20 @@ deep-QA pass (see `qa/DEEP-QA.md`). No new components or libraries were introduc
 - **bento-grid.tsx** — removed the grid's own `max-w-7xl` (it double-inset the cards
   against the page container); items now `justify-start` (was `justify-between`, which
   parked text at uneven heights); descriptions `text-xs` neutral → `text-sm` bark/80.
-- **hero-parallax.tsx** — gentler motion ranges (translateY −700→500 ⇒ −320→260,
-  rotateZ 20° ⇒ 10°, start opacity 0.2 ⇒ 0.55) so rows no longer bury the heading or
-  leave empty green stretches; header given `z-10`; section title is now an `<h2>`
-  (was `<p>`); card images `object-center` (was `object-left-top`) with
-  `loading="lazy" decoding="async"`; row spacing `mb-20` → `mb-14`, section `py-24`.
+- **hero-parallax.tsx** — gentler motion ranges (translateY −700→500 ⇒ −140→200 after
+  two tuning rounds, rotateZ 20° ⇒ 7°, start opacity 0.2 ⇒ 0.55) so rows never slide
+  under the heading text or leave empty green stretches; header given `z-10`; section
+  title is now an `<h2>` (was `<p>`); card images `object-center` (was
+  `object-left-top`) with `loading="lazy" decoding="async"`; row spacing `mb-20` →
+  `mb-10`, section height 300vh → 260vh, section/header padding reduced.
 - **infinite-moving-cards.tsx** — cards rethemed from near-white/zinc to cream→parch
   with leaf/15 borders and bark text; JS-cloned duplicate slides now get
-  `aria-hidden="true"` and their focusables `tabindex="-1"`.
+  `aria-hidden="true"` and their focusables `tabindex="-1"`; edge mask narrowed
+  (20%/80% ⇒ 8%/92%) so edge cards stay readable instead of fading to invisibility.
+- **sticky-scroll-reveal.tsx (round 2)** — active-step detection rewritten: the stock
+  `useScroll` container progress never approached 1 while the panel was on screen, so
+  the last step could never activate; the active step is now computed from the panel's
+  own scroll ratio (`floor(ratio × steps)` in a passive scroll listener).
 - **direction-aware-hover.tsx** — removed a `console.log` that fired on every hover; the
   image `alt` is now a real `imageAlt` prop (was hardcoded `"image"`).
 - Call-site props (in `src/app/page.tsx`, no component edits): SpotlightCard used with

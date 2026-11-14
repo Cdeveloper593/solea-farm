@@ -52,13 +52,13 @@ export default function Home() {
   return (
     <main id="top" className="overflow-x-clip">
       {/* ═══════════ HERO ═══════════ */}
-      <section aria-label="Solea — Sicilian citrus farm" className="relative mx-auto max-w-[1440px] px-5 sm:px-10 pt-24 sm:pt-32 pb-10">
+      <section aria-label="Solea — Sicilian citrus farm" className="relative mx-auto max-w-[1440px] px-5 sm:px-10 pt-24 sm:pt-32 pb-8">
         <div className="grid lg:grid-cols-[1.15fr_1fr] gap-10 items-start">
           <div>
             <p className="eyebrow mb-6">Fattoria degli Agrumi — Est. 1962 · Sicily</p>
             <h1 className="sr-only">Solea — Sicilian citrus farm making marmalades, pestos and grove oils</h1>
-            <SplitText textAlign="left" text="Sunshine," tag="span" className="block font-display font-medium text-[17vw] sm:text-7xl lg:text-8xl leading-[0.95] text-leaf pb-[0.16em] -mb-[0.16em]" />
-            <SplitText textAlign="left" text="sealed in a jar." tag="span" className="block font-display font-medium italic text-[17vw] sm:text-7xl lg:text-8xl leading-[0.95] text-citrus pb-[0.16em] -mb-[0.16em]" />
+            <SplitText textAlign="left" text="Sunshine," tag="span" duration={0.9} delay={30} className="block font-display font-medium text-[17vw] sm:text-7xl lg:text-8xl leading-[0.95] text-leaf pb-[0.16em] -mb-[0.16em]" />
+            <SplitText textAlign="left" text="sealed in a jar." tag="span" duration={0.9} delay={30} className="block font-display font-medium italic text-[17vw] sm:text-7xl lg:text-8xl leading-[0.95] text-citrus pb-[0.16em] -mb-[0.16em]" />
             <div className="mt-7 max-w-xl text-lg text-bark/85 leading-relaxed">
               Small-batch preserves from our own grove — <span className="inline-block min-w-[184px] align-baseline"><FlipWords words={['blood oranges', 'Femminello lemons', 'late mandarins', 'bitter bergamots']} className="font-semibold text-leaf" duration={2600} /></span> picked at dawn and panned the same morning, a few steps from the trees.
             </div>
@@ -106,12 +106,12 @@ export default function Home() {
       </div>
 
       {/* ═══════════ STORY ═══════════ */}
-      <section id="story" aria-label="Our story" className="scroll-mt-24 mx-auto max-w-[1440px] px-5 sm:px-10 py-20 sm:py-28">
+      <section id="story" aria-label="Our story" className="scroll-mt-24 mx-auto max-w-[1440px] px-5 sm:px-10 py-16 sm:py-24">
         <p className="eyebrow mb-5">Terroir</p>
         <TextGenerateEffect words="Fourteen hectares of volcanic soil between Etna and the Ionian Sea. The mountain gives the fruit its minerals; the sea gives it its perfume. We just try not to get in the way." className="max-w-4xl font-display text-3xl sm:text-5xl leading-tight text-leaf" duration={0.7} />
         <div className="mt-14 grid md:grid-cols-3 gap-5">
           {[
-            { t: 'Volcanic soil', d: 'Etna’s ash makes the ground dark, warm and mineral. Roots run deep; the fruit tastes of the mountain whether we plan it or not.', img: '/images/harvest.jpg', alt: 'Hands holding a bowl of the morning harvest' },
+            { t: 'Volcanic soil', d: 'Etna’s ash makes the ground dark, warm and mineral. Roots run deep; the fruit tastes of the mountain whether we plan it or not.', img: '/images/tomato.jpg', alt: 'A ripe tomato resting on dark volcanic stone' },
             { t: 'Picked, not shipped', d: 'Nothing in a Solea jar has been on a truck before it met the pan. If it didn’t grow within sight of the kitchen, it doesn’t go in.', img: '/images/lemons-cut.jpg', alt: 'Lemons cut thick for the marmalade pan' },
             { t: 'Recipes from Nonna Lia', d: 'Our founder’s notebooks sit in the kitchen, sugar-stained and corrected in three hands. We follow them — and argue with them — daily.', img: '/images/spices.jpg', alt: 'Spices and herbs measured for the preserves' },
           ].map((c) => (
@@ -129,9 +129,9 @@ export default function Home() {
       </section>
 
       {/* ═══════════ PROCESS ═══════════ */}
-      <section id="process" aria-label="From grove to jar" className="scroll-mt-24 mx-auto max-w-[1440px] px-5 sm:px-10 pb-20 sm:pb-28">
+      <section id="process" aria-label="From grove to jar" className="scroll-mt-24 mx-auto max-w-[1440px] px-5 sm:px-10 pb-16 sm:pb-24">
         <p className="eyebrow mb-4">Production</p>
-        <SplitText textAlign="left" text="From grove to jar in one morning" tag="h2" className="font-display font-medium text-4xl sm:text-6xl text-leaf mb-8" />
+        <SplitText textAlign="left" text="From grove to jar in one morning" tag="h2" splitType="words" duration={0.85} delay={60} className="font-display font-medium text-4xl sm:text-6xl text-leaf mb-8" />
         <div data-lenis-prevent className="rounded-[2rem] overflow-hidden shadow-2xl">
           <StickyScroll content={PROCESS} contentClassName="rounded-2xl" />
         </div>
@@ -139,11 +139,11 @@ export default function Home() {
       </section>
 
       {/* ═══════════ PANTRY ═══════════ */}
-      <section id="pantry" aria-label="The pantry — our products" className="scroll-mt-24 bg-parch/60 py-20 sm:py-28">
+      <section id="pantry" aria-label="The pantry — our products" className="scroll-mt-24 bg-parch/60 py-16 sm:py-24">
         <div className="mx-auto max-w-[1440px] px-5 sm:px-10">
           <p className="eyebrow mb-4">The Pantry</p>
           <div className="flex flex-wrap items-end justify-between gap-6 mb-10">
-            <SplitText textAlign="left" text="Jars we’re proud of" tag="h2" className="font-display font-medium text-4xl sm:text-6xl text-leaf" />
+            <SplitText textAlign="left" text="Jars we’re proud of" tag="h2" splitType="words" duration={0.85} delay={60} className="font-display font-medium text-4xl sm:text-6xl text-leaf" />
             <BlurText delay={45} text="Eight preserves, made in the grove kitchen. Prices include the jar, the story, and postage anywhere in Europe over €40." className="max-w-md text-bark/85" />
           </div>
 
@@ -167,8 +167,8 @@ export default function Home() {
                       <p className="text-[10px] font-bold uppercase tracking-[0.18em]" style={{ color: p.hue }}>{p.family}</p>
                       <h3 className="font-display text-xl leading-snug text-leaf mt-1.5">{p.name}</h3>
                       <p className="text-sm text-bark/80 mt-2 leading-relaxed">{p.notes}</p>
-                      <div className="mt-auto flex items-center justify-between pt-4">
-                        <p className="font-display text-2xl text-leaf">€{p.price} <span className="font-sans text-xs text-bark/60">/ {p.size}</span></p>
+                      <div className="mt-auto flex items-end justify-between gap-3 pt-4">
+                        <p className="font-display text-2xl leading-none text-leaf">€{p.price}<span className="mt-1.5 block font-sans text-[11px] leading-tight text-bark/60">{p.size}</span></p>
                         <a href="#visit" aria-label={`Order ${p.name} — visit or write to us`} className="rounded-full bg-leaf px-4 py-2.5 min-h-[44px] inline-flex items-center text-xs font-bold uppercase tracking-[0.12em] text-cream hover:bg-citrus transition-colors">Add</a>
                       </div>
                     </div>
@@ -186,17 +186,17 @@ export default function Home() {
       </section>
 
       {/* ═══════════ SEASONS ═══════════ */}
-      <section id="seasons" aria-label="Harvest seasons" className="scroll-mt-24 mx-auto max-w-[1440px] px-5 sm:px-10 py-20 sm:py-28">
+      <section id="seasons" aria-label="Harvest seasons" className="scroll-mt-24 mx-auto max-w-[1440px] px-5 sm:px-10 py-16 sm:py-24">
         <p className="eyebrow mb-4">The Year</p>
-        <SplitText textAlign="left" text="Four seasons, four kitchens" tag="h2" className="font-display font-medium text-4xl sm:text-6xl text-leaf" />
+        <SplitText textAlign="left" text="Four seasons, four kitchens" tag="h2" splitType="words" duration={0.85} delay={60} className="font-display font-medium text-4xl sm:text-6xl text-leaf" />
         <ScrollReveal containerClassName="mt-5 max-w-2xl" textClassName="text-lg text-bark/85 leading-relaxed">The grove sets the menu. Follow the line down through our year — every season changes what the copper pans are doing.</ScrollReveal>
         <Timeline data={SEASONS} />
       </section>
 
       {/* ═══════════ JOURNAL ═══════════ */}
-      <section id="journal" aria-label="Journal and recipes" className="scroll-mt-24 mx-auto max-w-[1440px] px-5 sm:px-10 pb-20 sm:pb-28">
+      <section id="journal" aria-label="Journal and recipes" className="scroll-mt-24 mx-auto max-w-[1440px] px-5 sm:px-10 pb-16 sm:pb-24">
         <p className="eyebrow mb-4">Journal</p>
-        <SplitText textAlign="left" text="From the farm notebook" tag="h2" className="font-display font-medium text-4xl sm:text-6xl text-leaf mb-10" />
+        <SplitText textAlign="left" text="From the farm notebook" tag="h2" splitType="words" duration={0.85} delay={60} className="font-display font-medium text-4xl sm:text-6xl text-leaf mb-10" />
         <div className="grid md:grid-cols-3 gap-6">
           {JOURNAL.map((j) => (
             <article key={j.title} className="flex flex-col gap-4">
@@ -215,7 +215,7 @@ export default function Home() {
       </section>
 
       {/* ═══════════ VOICES ═══════════ */}
-      <section aria-label="What chefs and shops say" className="bg-parch/60 py-20 overflow-hidden">
+      <section aria-label="What chefs and shops say" className="bg-parch/60 py-16 overflow-hidden">
         <p className="eyebrow text-center mb-4">Voices</p>
         <h2 className="sr-only">Testimonials</h2>
         <BlurText delay={80} text="Kitchens that cook with us" className="text-center font-display font-medium text-4xl sm:text-5xl text-leaf mb-10 justify-center" />
@@ -225,10 +225,10 @@ export default function Home() {
       {/* ═══════════ VISIT ═══════════ */}
       <section id="visit" aria-label="Visit the farm" className="scroll-mt-24 relative bg-leaf overflow-hidden">
         <Spotlight className="-top-40 left-0 md:left-60" fill="#F0A202" />
-        <div className="relative mx-auto max-w-[1440px] px-5 sm:px-10 py-20 sm:py-28 grid lg:grid-cols-2 gap-14">
+        <div className="relative mx-auto max-w-[1440px] px-5 sm:px-10 py-16 sm:py-24 grid lg:grid-cols-2 gap-14">
           <div>
             <p className="eyebrow !text-lemon mb-4">Experience</p>
-            <SplitText textAlign="left" text="Walk the grove. Taste the pan." tag="h2" className="font-display font-medium text-4xl sm:text-6xl text-cream" />
+            <SplitText textAlign="left" text="Walk the grove. Taste the pan." tag="h2" splitType="words" duration={0.85} delay={60} className="font-display font-medium text-4xl sm:text-6xl text-cream" />
             <p className="mt-6 text-cream/85 leading-relaxed max-w-lg">Grove walks run Friday to Sunday, 9:00–13:00, from blossom in April to the last mandarin in March. Ninety minutes among the trees, a tasting in the kitchen, and a jar to take home — €18 a person, children under ten free.</p>
             <ul className="mt-8 space-y-3 text-cream/90">
               {['Contrada Solea 12, 95024 Catania — 25 min from the airport', 'Tastings in English, Italian and Sicilian (in that order of fluency)', 'The farm shop is open daily 8:00–18:00'].map((li) => (

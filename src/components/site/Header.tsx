@@ -51,7 +51,7 @@ export default function Header() {
                 <li key={l.href}>
                   <a href={l.href} onClick={() => setOpen(false)} className="group flex items-baseline gap-4 py-1 w-fit">
                     <span className="text-lemon font-sans text-sm">0{i + 1}</span>
-                    <SplitText textAlign="left" text={l.label} tag="span" className="font-display text-4xl sm:text-6xl font-medium group-hover:text-lemon transition-colors" />
+                    <SplitText textAlign="left" text={l.label} tag="span" duration={0.8} delay={25} className="font-display text-4xl sm:text-6xl font-medium group-hover:text-lemon transition-colors" />
                   </a>
                 </li>
               ))}

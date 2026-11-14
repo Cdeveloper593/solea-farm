@@ -47,17 +47,17 @@ export const HeroParallax = ({
     springConfig
   );
   const rotateZ = useSpring(
-    useTransform(scrollYProgress, [0, 0.2], [10, 0]),
+    useTransform(scrollYProgress, [0, 0.2], [7, 0]),
     springConfig
   );
   const translateY = useSpring(
-    useTransform(scrollYProgress, [0, 0.2], [-320, 260]),
+    useTransform(scrollYProgress, [0, 0.2], [-140, 200]),
     springConfig
   );
   return (
     <div
       ref={ref}
-      className="h-[300vh] py-24 overflow-hidden  antialiased relative flex flex-col self-auto [perspective:1000px] [transform-style:preserve-3d]"
+      className="h-[260vh] py-16 overflow-hidden  antialiased relative flex flex-col self-auto [perspective:1000px] [transform-style:preserve-3d]"
     >
       <Header />
       <motion.div
@@ -69,7 +69,7 @@ export const HeroParallax = ({
         }}
         className=""
       >
-        <motion.div className="flex flex-row-reverse space-x-reverse space-x-20 mb-14">
+        <motion.div className="flex flex-row-reverse space-x-reverse space-x-20 mb-10">
           {firstRow.map((product) => (
             <ProductCard
               product={product}
@@ -78,7 +78,7 @@ export const HeroParallax = ({
             />
           ))}
         </motion.div>
-        <motion.div className="flex flex-row  mb-14 space-x-20 ">
+        <motion.div className="flex flex-row  mb-10 space-x-20 ">
           {secondRow.map((product) => (
             <ProductCard
               product={product}
@@ -103,7 +103,7 @@ export const HeroParallax = ({
 
 export const Header = () => {
   return (
-    <div className="max-w-7xl relative z-10 mx-auto py-20 md:py-28 px-4 w-full  left-0 top-0">
+    <div className="max-w-7xl relative z-10 mx-auto py-14 md:py-20 px-4 w-full  left-0 top-0">
       <h2 className="font-display text-4xl md:text-7xl font-medium text-cream">
         The grove, <br /> in every season
       </h2>
