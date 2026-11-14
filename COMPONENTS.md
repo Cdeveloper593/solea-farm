@@ -48,6 +48,45 @@ label cursor — closest concept is the reference’s own; implemented as ~40 li
 glue), native form controls for the visit booking (neither library ships form primitives),
 product data, Lenis smooth-scroll wiring, and the R3F citrus canvas (`CitrusCanvas`).
 
+## Deep-QA adaptations (2026-11-14)
+
+Documented changes to the vendored library copies / their configuration, made during the
+deep-QA pass (see `qa/DEEP-QA.md`). No new components or libraries were introduced.
+
+- **tailwind.config.js** — added the `scroll` and `spotlight` keyframes + animation
+  utilities the Aceternity components reference (they were missing, so the testimonial
+  marquee and the Visit spotlight never animated).
+- **text-generate-effect.tsx** — removed the hardcoded `text-black` colour and `text-2xl`
+  size from the word spans so the caller's typography (Fraunces, leaf) applies.
+- **sticky-scroll-reveal.tsx** — brand retheme: panel backgrounds slate/black/neutral →
+  leaf/bark/deep-leaf; gradient chips cyan→emerald / pink→indigo → citrus→lemon /
+  lemon→moss / wine→citrus; step titles set in Fraunces cream, body cream/85; fixed the
+  `text-kg` typo class; tighter step margins (`my-14`), shorter end spacer (`h-24`),
+  inactive-step opacity 0.3 → 0.45, panel radius `rounded-[2rem]`, padding `p-6 sm:p-10`.
+- **timeline.tsx** — removed the vendor demo header block ("Changelog from my journey…");
+  entry titles rethemed to Fraunces leaf; progress line gradient purple→blue →
+  citrus→lemon; node dot lemon/citrus; entry top padding `md:pt-40` → `md:pt-24`; line
+  height now measured with a ResizeObserver instead of once on mount.
+- **bento-grid.tsx** — removed the grid's own `max-w-7xl` (it double-inset the cards
+  against the page container); items now `justify-start` (was `justify-between`, which
+  parked text at uneven heights); descriptions `text-xs` neutral → `text-sm` bark/80.
+- **hero-parallax.tsx** — gentler motion ranges (translateY −700→500 ⇒ −320→260,
+  rotateZ 20° ⇒ 10°, start opacity 0.2 ⇒ 0.55) so rows no longer bury the heading or
+  leave empty green stretches; header given `z-10`; section title is now an `<h2>`
+  (was `<p>`); card images `object-center` (was `object-left-top`) with
+  `loading="lazy" decoding="async"`; row spacing `mb-20` → `mb-14`, section `py-24`.
+- **infinite-moving-cards.tsx** — cards rethemed from near-white/zinc to cream→parch
+  with leaf/15 borders and bark text; JS-cloned duplicate slides now get
+  `aria-hidden="true"` and their focusables `tabindex="-1"`.
+- **direction-aware-hover.tsx** — removed a `console.log` that fired on every hover; the
+  image `alt` is now a real `imageAlt` prop (was hardcoded `"image"`).
+- Call-site props (in `src/app/page.tsx`, no component edits): SpotlightCard used with
+  `theme="light"` + parch surface override + zero baked padding; SplitText given
+  `textAlign="left"` everywhere; BlurText given a 45–80ms word stagger (default 200ms
+  left text blurred for ~4s); FlipWords wrapped in a fixed-min-width span so the
+  sentence doesn't shift; ShinyText given lemon base + cream shine colours;
+  InfiniteMovingCards centred (`mx-auto`) with `pauseOnHover`.
+
 ## Allowed non-component dependencies
 React/Next.js, Tailwind CSS, motion, GSAP (+ @gsap/react, used by React Bits SplitText),
 three.js via @react-three/fiber + drei (for our own Blender GLB), Lenis, Google Fonts
