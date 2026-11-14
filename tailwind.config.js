@@ -1,0 +1,2 @@
+/** @type {import('tailwindcss').Config} */
+module.exports={content:['./src/**/*.{ts,tsx}'],theme:{extend:{colors:{cream:'#FBF2DF',parch:'#F4E7CB',leaf:'#22402A',moss:'#47663B',bark:'#3B2A1E',citrus:'#E85D1F',lemon:'#F0A202',wine:'#7A2E35',ink:'#221A12'},fontFamily:{display:['var(--font-display)','Fraunces','Georgia','serif'],sans:['var(--font-body)','Outfit','Helvetica Neue','Arial','sans-serif']},letterSpacing:{mega:'0.35em'}}},plugins:[]}

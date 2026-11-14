@@ -1,0 +1,26 @@
+{
+  "360x740": {
+    "h1": 1,
+    "main": 1,
+    "canvas": 1,
+    "overflow": false,
+    "sw": 360,
+    "cw": 360,
+    "sh": 19051,
+    "imgs": [
+      "http://localhost:4200/_next/image?url=%2Fimages%2Fharvest.jpg&w=1920&q=75",
+      "http://localhost:4200/_next/image?url=%2Fimages%2Flemons-cut.jpg&w=1920&q=75",
+      "http://localhost:4200/_next/image?url=%2Fimages%2Fspices.jpg&w=1920&q=75",
+      "http://localhost:4200/_next/image?url=%2Fimages%2Fharvest.jpg&w=3840&q=75",
+      "http://localhost:4200/_next/image?url=%2Fimages%2Foranges-pile.jpg&w=2048&q=75",
+      "http://localhost:4200/_next/image?url=%2Fimages%2Fbasil.jpg&w=1920&q=75",
+      "http://localhost:4200/_next/image?url=%2Fimages%2Foil.jpg&w=1920&q=75",
+      "http://localhost:4200/_next/image?url=%2Fimages%2Flemons.jpg&w=2048&q=75",
+      "http://localhost:4200/_next/image?url=%2Fimages%2Foranges-pile.jpg&w=1920&q=75",
+      "http://localhost:4200/_next/image?url=%2Fimages%2Flemons.jpg&w=1920&q=75",
+      "http://localhost:4200/_next/image?url=%2Fimages%2Ftomato.jpg&w=1920&q=75",
+      "http://localhost:4200/_next/image?url=%2Fimages%2Foil.jpg&w=1920&q=75"
+    ],
+    "errors": []
+  }
+}

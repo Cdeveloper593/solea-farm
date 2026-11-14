@@ -1,0 +1,36 @@
+# dependencies
+/node_modules
+/.pnp
+.pnp.*
+
+# next.js
+/.next
+/out
+build
+
+# production
+/dist
+
+# logs
+*.log
+npm-debug.log*
+
+# misc
+.DS_Store
+*.pem
+
+# debug / runtime artifacts
+server-*.log
+tunnel-*.log
+
+# local env files
+.env*.local
+.env
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
+
+# snapshot sync records
+*.muse-github-snapshot-sync.json
+*.muse-github-snapshot-sync.json.tmp-*
