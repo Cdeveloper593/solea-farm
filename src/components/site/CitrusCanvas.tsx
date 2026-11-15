@@ -41,10 +41,13 @@ function Branch({ spin }: { spin: React.RefObject<SpinState> }) {
     } else if (!s.dragging) {
       s.velocity = 0
     }
+    // Gentle continuous auto-spin whenever the visitor isn't dragging
+    // (~14 s per full turn). Feeding the shared target keeps the damped
+    // follow — and any flick inertia — in charge of the actual motion.
+    if (!s.dragging) s.target += delta * 0.45
     // Damped follow (frame-rate independent).
     s.current += (s.target - s.current) * (1 - Math.exp(-12 * delta))
-    const idleSway = s.dragging ? 0 : Math.sin(t * 0.25) * 0.12
-    ref.current.rotation.y = s.current + idleSway + scroll * 1.1
+    ref.current.rotation.y = s.current + scroll * 1.1
     // Vertical tilt stays a gentle pointer parallax; it never touches azimuth.
     ref.current.rotation.x = (s.dragging ? 0 : state.pointer.y * -0.15) + scroll * 0.25
     ref.current.position.y = Math.sin(t * 0.8) * 0.05 - scroll * 0.15
