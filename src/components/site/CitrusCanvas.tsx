@@ -19,7 +19,7 @@ type SpinState = { target: number; current: number; velocity: number; dragging: 
 
 function Branch({ spin }: { spin: React.RefObject<SpinState> }) {
   const ref = useRef<Group>(null)
-  const { scene } = useGLTF('/models/citrus-branch.glb')
+  const { scene } = useGLTF('/models/valencia-orange.glb')
   const { size, camera } = useThree()
   // The model's framing was tuned for a ~600px-wide canvas. Scale it down on
   // narrow canvases so the branch tips are never clipped at <=1024px widths.
@@ -63,7 +63,7 @@ export default function CitrusCanvas() {
   const spin = useRef<SpinState>({ target: 0, current: 0, velocity: 0, dragging: false, lastX: 0, lastT: 0 })
   const poster = (
     // eslint-disable-next-line @next/next/no-img-element
-    <img src="/images/citrus-poster.png" alt="A stylised 3D citrus branch with two oranges, a lemon, green leaves and a white blossom" width={1100} height={800} className="h-full w-full object-contain" />
+    <img src="/images/citrus-poster.png" alt="A photorealistic 3D Valencia orange with a green stem and a small leaf" width={1100} height={800} className="h-full w-full object-contain" />
   )
   if (reduced) return poster
 
@@ -90,7 +90,7 @@ export default function CitrusCanvas() {
   return (
     <div
       role="img"
-      aria-label="Interactive 3D citrus branch — drag to spin it all the way around"
+      aria-label="Interactive 3D Valencia orange — drag to spin it all the way around"
       className="h-full w-full cursor-grab touch-pan-y select-none active:cursor-grabbing"
       onPointerDown={onPointerDown}
       onPointerMove={onPointerMove}
@@ -115,4 +115,4 @@ export default function CitrusCanvas() {
     </div>
   )
 }
-useGLTF.preload('/models/citrus-branch.glb')
+useGLTF.preload('/models/valencia-orange.glb')

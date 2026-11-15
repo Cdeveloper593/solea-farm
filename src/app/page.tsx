@@ -76,7 +76,7 @@ export default function Home() {
             <div data-cursor="Drag to spin" className="relative h-[320px] sm:h-[400px] lg:h-[460px]">
               <CitrusCanvas />
             </div>
-            <p className="text-center text-[11px] uppercase tracking-mega text-bark/60 mt-1">Our branch — modelled in 3D · drag to spin it</p>
+            <p className="text-center text-[11px] uppercase tracking-mega text-bark/60 mt-1">Our Valencia — modelled in 3D · drag to spin it</p>
             <div className="mx-auto mt-6 max-w-sm">
               <CardContainer className="inter-var">
                 <CardBody className="relative h-auto w-full rounded-3xl border border-leaf/15 bg-parch p-5 shadow-xl">
@@ -264,7 +264,7 @@ export default function Home() {
           </div>
           <div className="mt-14 border-t border-cream/15 pt-6 flex flex-wrap justify-between gap-4 text-xs text-cream/55">
             <p>© {new Date().getFullYear()} Solea Soc. Agricola — an original, fictional farm created as a design study.</p>
-            <p>Components: Aceternity UI + React Bits only. Citrus branch modelled in Blender.</p>
+            <p>Components: Aceternity UI + React Bits only. Valencia orange modelled in Blender.</p>
           </div>
         </div>
       </footer>
